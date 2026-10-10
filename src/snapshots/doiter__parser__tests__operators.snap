@@ -1,0 +1,26 @@
+---
+source: src/parser.rs
+expression: str
+---
+AST {
+    types: {},
+    functions: {},
+    statements: [
+        Var {
+            name: "byte",
+            ty: Structure(
+                "b",
+            ),
+            rhs: Binop(
+                "==",
+                [
+                    Call {
+                        func: "x",
+                        parameters: [],
+                    },
+                    Null,
+                ],
+            ),
+        },
+    ],
+}

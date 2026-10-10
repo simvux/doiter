@@ -1,0 +1,24 @@
+---
+source: src/parser.rs
+expression: str
+---
+AST {
+    types: {},
+    functions: {},
+    statements: [
+        Var {
+            name: "a",
+            ty: Char,
+            rhs: Char(
+                'a',
+            ),
+        },
+        Var {
+            name: "b",
+            ty: Char,
+            rhs: Char(
+                'b',
+            ),
+        },
+    ],
+}

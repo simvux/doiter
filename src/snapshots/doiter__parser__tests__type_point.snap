@@ -1,0 +1,26 @@
+---
+source: src/parser.rs
+expression: str
+---
+AST {
+    types: {
+        "Point": Structure {
+            fields: [
+                (
+                    "x",
+                    Structure(
+                        "int",
+                    ),
+                ),
+                (
+                    "y",
+                    Structure(
+                        "int",
+                    ),
+                ),
+            ],
+        },
+    },
+    functions: {},
+    statements: [],
+}

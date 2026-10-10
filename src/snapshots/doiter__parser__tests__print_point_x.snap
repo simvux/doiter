@@ -1,0 +1,19 @@
+---
+source: src/parser.rs
+expression: str
+---
+AST {
+    types: {},
+    functions: {},
+    statements: [
+        Call {
+            func: "print",
+            parameters: [
+                FieldOf(
+                    "point",
+                    "x",
+                ),
+            ],
+        },
+    ],
+}

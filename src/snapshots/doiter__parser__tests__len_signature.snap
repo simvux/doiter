@@ -1,0 +1,26 @@
+---
+source: src/parser.rs
+expression: str
+---
+AST {
+    types: {},
+    functions: {
+        "get": Function {
+            arguments: [
+                (
+                    "list",
+                    Structure(
+                        "ByteList",
+                    ),
+                ),
+                (
+                    "elem",
+                    Byte,
+                ),
+            ],
+            ret: Byte,
+            statements: [],
+        },
+    },
+    statements: [],
+}

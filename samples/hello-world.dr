@@ -1,0 +1,23 @@
+type Nothing {}
+
+type String {
+  c: char,
+  next: String,
+}
+
+func and (c : char) (chars : String) -> String {
+  return String { c: c, next: chars };
+}
+
+func print_string (charList : String) -> Nothing {
+	when charList == null: return Nothing {};
+	print charList.c;
+	print_string charList.next;
+	return Nothing {};
+}
+
+var newline: String = String { c: '\n', next: null };
+var hi: String = and 'H' (and 'e' (and 'l' (and 'l' (and 'o' (and ' ' (and 'W' (and 'o' (and 'r' (and 'l' (and 'd' newline))))))))));
+
+print_string hi;
+

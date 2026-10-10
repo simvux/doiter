@@ -1,0 +1,16 @@
+[package]
+name = "doiter"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+async-recursion = "1.2.0"
+bollard = "0.21.1"
+bpaf = { version = "0.9.28", features = ["autocomplete"] }
+futures = "0.3.34"
+insta = "1.49.0"
+logos = "0.16.1"
+tokio = { version = "1.53.2", features = ["full"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+tracing-tree = "0.4.1"
