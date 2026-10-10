@@ -1,6 +1,6 @@
 # Doiter - A Cloud Native Language For The Modern World
 
-Doiter uses the running docker daemon as it's virtual memory. It does so by for each allocation/stack-frame creating a docker container. Each structure will also be allocated as a nullable pointer. So taking the following example:
+Doiter uses the running docker daemon as it's virtual memory. It does so by creating a docker container for each allocation/stack-frame. Each structure will also be allocated as a nullable pointer. So taking the following example:
 
 ```rust
 type Point {
@@ -46,7 +46,7 @@ doiter samples/hello-world.dr
 doiter --cleanup-all
 
 # To inspect what doiter creates, you can keep the containers and navigate them
-doiter --no-cleanup
+doiter --no-cleanup samples/hello-world.dr
 docker ps
 docker exec <CONTAINER> -it /bin/ash
 $ ls /
@@ -62,7 +62,7 @@ RUST_LOG=doiter=info doiter samples/hello-world.dr
 No. This is a terrible idea on every level.
 
 **Is this project vibe-coded?**\
-Zero AI was used in the making of this monstrosity.
+No. Zero AI was used in the making of this monstrosity.
 
 **Why?** \
 This project was created as a submission to a hackathon where the goal was to create a "spooky" programming language during October.
@@ -70,12 +70,12 @@ This project was created as a submission to a hackathon where the goal was to cr
 I decided that sufficiently cursed would count as spooky.
 
 **How good is the performance?**\
-Currently `samples/hello-world.dr` takes about a minute to run on my machine. With the state of the industry, this comparatively isn't too bad.
+Currently `samples/hello-world.dr` takes about a minute to run on my machine. With the state of the industry, this isn't too bad in comparison.
 
-As there are no strings/arrays, it's implemented with a linked list. This means that each character of "Hello World" gets its own docker container.
+As there are no strings/arrays it's implemented with a linked list. This means that each character of "Hello World" gets its own docker container. In total it spawns 51 docker containers.
 
-**Are you a fan of docker?**\
-No. This project is partly a parody of unnecessary docker use.
+**Woah you must love docker?**\
+No. This project is a parody of unnecessary docker use and overabstraction.
 
 **Does Doiter use Garbage Collection?**\
 Doiter uses missile allocation. Meaning that no docker containers are cleaned up during execution but all docker containers are automatically removed when the program has completed.
