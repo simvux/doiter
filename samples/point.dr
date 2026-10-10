@@ -1,0 +1,9 @@
+type Point {
+  x: byte,
+  y: byte,
+};
+
+var point: Point = Point {
+  x: 1,
+  y: 2,
+};
