@@ -213,8 +213,21 @@ impl<'a> TreeWalker<'a> {
                 let lhs = self.expr(&sides[0]).await;
                 let rhs = self.expr(&sides[1]).await;
 
+                fn on_bytes(nums: [Value; 2], f: fn(u8, u8) -> u8) -> Value {
+                    let [lhs, rhs] = nums.map(|n| match n {
+                        Value::Byte(n) => n,
+                        _ => panic!("not a number: {n:?}"),
+                    });
+
+                    Value::Byte(f(lhs, rhs))
+                }
+
                 match op.as_str() {
                     "==" => Value::Byte((lhs == rhs) as u8),
+                    "+" => on_bytes([lhs, rhs], |x, y| x + y),
+                    "-" => on_bytes([lhs, rhs], |x, y| x - y),
+                    "*" => on_bytes([lhs, rhs], |x, y| x * y),
+                    "/" => on_bytes([lhs, rhs], |x, y| x / y),
                     _ => todo!(),
                 }
             }

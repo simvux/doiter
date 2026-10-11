@@ -1,0 +1,3 @@
+var x: byte = 4 / 2;
+
+print x;
