@@ -90,7 +90,6 @@ async fn main() {
         std::fs::File::open(&file).and_then(|mut file| file.read_to_string(&mut source))
     {
         eprintln!("Could not read source file `{}: {err}`", file.display());
-
         std::process::exit(1);
     }
 
@@ -103,7 +102,10 @@ async fn main() {
             println!("{ast:#?}");
         }
         Ok(ast) => {
-            type_check::TypeChecker::new(&ast).everything();
+            let failed = type_check::TypeChecker::new(&ast, &source).everything();
+            if failed {
+                std::process::exit(1)
+            }
 
             let engine = engine::TreeWalker::new(&ast).await.unwrap();
 

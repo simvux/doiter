@@ -1,4 +1,5 @@
 use super::lexer::Token;
+use core::fmt;
 use logos::Span;
 use std::collections::HashMap;
 
@@ -10,14 +11,15 @@ pub struct Parser<'src> {
 pub struct AST {
     pub types: HashMap<String, Structure>,
     pub functions: HashMap<String, Function>,
-    pub statements: Vec<Statement>,
+    pub statements: Vec<(Statement, Span)>,
 }
 
 #[derive(Debug)]
 pub struct Function {
+    pub span: Span,
     pub arguments: Vec<(String, Type)>,
     pub ret: Type,
-    pub statements: Vec<Statement>,
+    pub statements: Vec<(Statement, Span)>,
 }
 
 #[derive(Debug, Clone)]
@@ -127,13 +129,14 @@ impl<'src> Parser<'src> {
 
             match token {
                 Token::Func => {
-                    let (name, _) = self.name()?;
+                    let (name, span) = self.name()?;
                     let (arguments, ret) = self.fsignature()?;
                     self.expect(Token::CurlyOpen)?;
                     let statements = self.fstatements()?;
                     ast.functions.insert(
                         name,
                         Function {
+                            span,
                             arguments,
                             ret,
                             statements,
@@ -148,18 +151,22 @@ impl<'src> Parser<'src> {
                 }
                 Token::Var => {
                     let stm = self.var()?;
-                    ast.statements.push(stm);
+                    ast.statements.push((stm, span));
                 }
                 Token::When => {
                     let (cond, then) = self.when()?;
-                    ast.statements.push(Statement::When {
-                        cond,
-                        then: Box::new(then),
-                    });
+                    ast.statements.push((
+                        Statement::When {
+                            cond,
+                            then: Box::new(then),
+                        },
+                        span,
+                    ));
                 }
                 Token::Name(func) => {
                     let parameters = self.parameters()?;
-                    ast.statements.push(Statement::Call { func, parameters });
+                    ast.statements
+                        .push((Statement::Call { func, parameters }, span));
                 }
                 Token::SemiColon => continue,
 
@@ -213,7 +220,7 @@ impl<'src> Parser<'src> {
         }
     }
 
-    fn fstatements(&mut self) -> Result<Vec<Statement>, Error> {
+    fn fstatements(&mut self) -> Result<Vec<(Statement, Span)>, Error> {
         let mut statements = vec![];
 
         loop {
@@ -223,8 +230,8 @@ impl<'src> Parser<'src> {
                 break Ok(statements);
             }
 
-            let stm = self.fstatement((token, span))?;
-            statements.push(stm);
+            let stm = self.fstatement((token, span.clone()))?;
+            statements.push((stm, span));
         }
     }
 
@@ -431,6 +438,16 @@ impl Error {
                 super::error::Error::new(format!("field key is already assigned"))
                     .at(src, span.clone())
             }
+        }
+    }
+}
+
+impl fmt::Display for Type {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Type::Byte => "byte".fmt(f),
+            Type::Char => "char".fmt(f),
+            Type::Structure(name) => name.fmt(f),
         }
     }
 }

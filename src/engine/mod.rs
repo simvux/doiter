@@ -1,3 +1,4 @@
+use logos::Span;
 use std::path::PathBuf;
 
 use crate::parser as ast;
@@ -64,8 +65,8 @@ impl<'a> TreeWalker<'a> {
         });
     }
 
-    async fn statements(&mut self, statements: &[ast::Statement]) -> ControlFlow {
-        for stm in statements {
+    async fn statements(&mut self, statements: &[(ast::Statement, Span)]) -> ControlFlow {
+        for (stm, _) in statements {
             let flow = self.statement(stm).await;
 
             match flow {
