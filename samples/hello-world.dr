@@ -1,3 +1,6 @@
+# time to run: ~1 minute
+# containers created: 51
+
 type Nothing {}
 
 type String {
