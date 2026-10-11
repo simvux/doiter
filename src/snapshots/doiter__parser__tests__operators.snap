@@ -6,21 +6,24 @@ AST {
     types: {},
     functions: {},
     statements: [
-        Var {
-            name: "byte",
-            ty: Structure(
-                "b",
-            ),
-            rhs: Binop(
-                "==",
-                [
-                    Call {
-                        func: "x",
-                        parameters: [],
-                    },
-                    Null,
-                ],
-            ),
-        },
+        (
+            Var {
+                name: "byte",
+                ty: Structure(
+                    "b",
+                ),
+                rhs: Binop(
+                    "==",
+                    [
+                        Call {
+                            func: "x",
+                            parameters: [],
+                        },
+                        Null,
+                    ],
+                ),
+            },
+            13..16,
+        ),
     ],
 }

@@ -6,14 +6,17 @@ AST {
     types: {},
     functions: {},
     statements: [
-        Call {
-            func: "print",
-            parameters: [
-                FieldOf(
-                    "point",
-                    "x",
-                ),
-            ],
-        },
+        (
+            Call {
+                func: "print",
+                parameters: [
+                    FieldOf(
+                        "point",
+                        "x",
+                    ),
+                ],
+            },
+            13..18,
+        ),
     ],
 }

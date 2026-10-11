@@ -6,6 +6,7 @@ AST {
     types: {},
     functions: {
         "get": Function {
+            span: 18..21,
             arguments: [
                 (
                     "list",

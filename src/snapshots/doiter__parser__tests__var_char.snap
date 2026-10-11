@@ -6,19 +6,25 @@ AST {
     types: {},
     functions: {},
     statements: [
-        Var {
-            name: "a",
-            ty: Char,
-            rhs: Char(
-                'a',
-            ),
-        },
-        Var {
-            name: "b",
-            ty: Char,
-            rhs: Char(
-                'b',
-            ),
-        },
+        (
+            Var {
+                name: "a",
+                ty: Char,
+                rhs: Char(
+                    'a',
+                ),
+            },
+            13..16,
+        ),
+        (
+            Var {
+                name: "b",
+                ty: Char,
+                rhs: Char(
+                    'b',
+                ),
+            },
+            44..47,
+        ),
     ],
 }
