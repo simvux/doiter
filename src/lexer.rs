@@ -71,7 +71,7 @@ pub enum Token {
     ParenOpen,
     #[token(")")]
     ParenClose,
-    #[regex(r"[*\/\-+=]+", |lexer| lexer.slice().to_string())]
+    #[regex(r"[*\/\-+=%]+", |lexer| lexer.slice().to_string())]
     Operator(String),
     #[regex("[_a-zA-Z][-_0-9a-zA-Z]*\\.[_a-zA-Z][-_0-9a-zA-Z]*", split_field)]
     FieldOf((String, String)),

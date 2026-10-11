@@ -102,7 +102,7 @@ impl<'a, 's> TypeChecker<'a, 's> {
             ast::Expr::Byte(_) => ast::Type::Byte,
             ast::Expr::Char(_) => ast::Type::Char,
             ast::Expr::Binop(op, sides) => match op.as_str() {
-                "==" | "+" | "-" | "/" | "*" | "<" | ">" | ">=" | "<=" => {
+                "==" | "+" | "-" | "/" | "*" | "%" | "<" | ">" | ">=" | "<=" => {
                     if sides[0] == ast::Expr::Null || sides[1] == ast::Expr::Null {
                         return ast::Type::Byte;
                     }
