@@ -228,6 +228,10 @@ impl<'a> TreeWalker<'a> {
                     "-" => on_bytes([lhs, rhs], |x, y| x - y),
                     "*" => on_bytes([lhs, rhs], |x, y| x * y),
                     "/" => on_bytes([lhs, rhs], |x, y| x / y),
+                    "<" => on_bytes([lhs, rhs], |x, y| (x < y) as u8),
+                    ">" => on_bytes([lhs, rhs], |x, y| (x > y) as u8),
+                    ">=" => on_bytes([lhs, rhs], |x, y| (x >= y) as u8),
+                    "<=" => on_bytes([lhs, rhs], |x, y| (x <= y) as u8),
                     _ => todo!(),
                 }
             }
