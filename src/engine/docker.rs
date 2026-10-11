@@ -75,20 +75,29 @@ impl Memory {
 
         let name = format!("{}{counter}", self.magic);
 
-        // Create the docker image
-        self.docker
-            .create_image(
-                Some(
-                    bollard::query_parameters::CreateImageOptionsBuilder::default()
-                        .from_image(IMAGE)
-                        .build(),
-                ),
-                None,
-                None,
-            )
-            .try_collect::<Vec<_>>()
+        // Fetch the docker image if it does not exist
+        if !self
+            .docker
+            .list_images(None::<bollard::query_parameters::ListImagesOptions>)
             .await
-            .unwrap();
+            .unwrap()
+            .iter()
+            .any(|image| image.repo_tags.iter().any(|n| n == IMAGE))
+        {
+            self.docker
+                .create_image(
+                    Some(
+                        bollard::query_parameters::CreateImageOptionsBuilder::default()
+                            .from_image(IMAGE)
+                            .build(),
+                    ),
+                    None,
+                    None,
+                )
+                .try_collect::<Vec<_>>()
+                .await
+                .unwrap();
+        }
 
         // Create the docker container
         let response = {
