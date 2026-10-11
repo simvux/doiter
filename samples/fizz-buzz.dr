@@ -1,0 +1,58 @@
+# time to run: ~2 minutes
+# containers created: 108
+
+type Nothing {}
+
+type String {
+  c: char,
+  next: String,
+}
+
+func and (c : char) (chars : String) -> String {
+  return String { c: c, next: chars };
+}
+
+func print_string (charList : String) -> Nothing {
+	when charList == null: return Nothing {};
+	print charList.c;
+	print_string charList.next;
+	return Nothing {};
+}
+
+func fizzbuzz (n : byte) -> Nothing {
+    when (n % 15) == 0: return FizzBuzz;
+    when (n % 3) == 0: return Fizz;
+	when (n % 5) == 0: return Buzz;
+	print n;
+	print '\n';
+	return Nothing {};
+}
+
+func FizzBuzz -> Nothing {
+    var newline: String = String { c: '\n', next: null };
+    print_string (and 'F' (and 'i' (and 'z' (and 'z' (and 'B' (and 'u' (and 'z' (and 'z' newline))))))));
+	return Nothing {};
+}
+
+func Fizz -> Nothing {
+    var newline: String = String { c: '\n', next: null };
+    print_string (and 'B' (and 'u' (and 'z' (and 'z' newline))));
+	return Nothing {};
+}
+
+func Buzz -> Nothing {
+    var newline: String = String { c: '\n', next: null };
+    print_string (and 'F' (and 'i' (and 'z' (and 'z' newline))));
+	return Nothing {};
+}
+
+
+fizzbuzz 1;
+fizzbuzz 2;
+fizzbuzz 3;
+fizzbuzz 4;
+fizzbuzz 5;
+fizzbuzz 6;
+fizzbuzz 7;
+fizzbuzz 8;
+fizzbuzz 9;
